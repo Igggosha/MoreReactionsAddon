@@ -1,0 +1,9 @@
+{
+  "morereactions.generic_reaction.amide_condensation": "[destroy:amide] Condensation (With primary amine)",
+  "morereactions.generic_reaction.amide_condensation.description": "Condensation reaction of a [destroy:carboxylic_acid] and an [destroy:amine]. Requires pressure and heat (>373K).",
+  "morereactions.generic_reaction.ammonia_amide_condensation": "[destroy:amide] Condensation (With ammonia)",
+  "morereactions.generic_reaction.ammonia_amide_condensation.description": "Condensation reaction of a [destroy:carboxylic_acid] and a [destroy:ammonia]. Requires pressure and heat (>373K)."
+
+
+
+}

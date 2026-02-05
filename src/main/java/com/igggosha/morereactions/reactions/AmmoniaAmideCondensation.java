@@ -6,51 +6,49 @@ import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.chemistry.legacy.*;
 import com.petrolpark.destroy.chemistry.legacy.genericreaction.DoubleGroupGenericReaction;
 import com.petrolpark.destroy.chemistry.legacy.genericreaction.GenericReactant;
+import com.petrolpark.destroy.chemistry.legacy.genericreaction.SingleGroupGenericReaction;
 import com.petrolpark.destroy.chemistry.legacy.index.DestroyGroupTypes;
 import com.petrolpark.destroy.chemistry.legacy.index.DestroyMolecules;
 import com.petrolpark.destroy.chemistry.legacy.index.group.CarboxylicAcidGroup;
 import com.petrolpark.destroy.chemistry.legacy.index.group.PrimaryAmineGroup;
 
-import java.io.Console;
 
-public class AmideCondensation extends DoubleGroupGenericReaction<CarboxylicAcidGroup, PrimaryAmineGroup>
+public class AmmoniaAmideCondensation extends SingleGroupGenericReaction<CarboxylicAcidGroup>
 {
 
-    public AmideCondensation()
+    public AmmoniaAmideCondensation()
     {
-        super(ExampleMod.asResource("amide_condensation"), DestroyGroupTypes.CARBOXYLIC_ACID, DestroyGroupTypes.PRIMARY_AMINE);
+        super(ExampleMod.asResource("ammonia_amide_condensation"), DestroyGroupTypes.CARBOXYLIC_ACID);
     }
 
     @Override
     public boolean isPossibleIn(ReadOnlyMixture mixture)
     {
-        return mixture.getTemperature() >= 100;
+        return mixture.getTemperature() >= 100 && mixture.getConcentrationOf(DestroyMolecules.AMMONIA) > 0f;
     }
 
     @Override
-    public LegacyReaction generateReaction(GenericReactant<CarboxylicAcidGroup> first, GenericReactant<PrimaryAmineGroup> second)
+    public LegacyReaction generateReaction(GenericReactant<CarboxylicAcidGroup> first)
     {
-        LegacyMolecularStructure amineStructure = second.getMolecule().shallowCopyStructure();
-        PrimaryAmineGroup amineGroup = second.getGroup();
-
-        amineStructure.moveTo(amineGroup.nitrogen)
-            .remove(amineGroup.firstHydrogen);
+        LegacyMolecularStructure ammoniaStructure = LegacyMolecularStructure.atom(LegacyElement.NITROGEN)
+                .addAtom(LegacyElement.HYDROGEN)
+                .addAtom(LegacyElement.HYDROGEN);
 
         LegacyMolecularStructure acidStructure = first.getMolecule().shallowCopyStructure();
         CarboxylicAcidGroup acidGroup = first.getGroup();
 
         acidStructure.moveTo(acidGroup.carbon)
-            .remove(acidGroup.proton)
+                .remove(acidGroup.proton)
 //        acidStructure.moveTo(acidGroup.carbon)
-            .remove(acidGroup.alcoholOxygen);
+                .remove(acidGroup.alcoholOxygen);
 
         LegacySpecies amide = moleculeBuilder().structure(LegacyMolecularStructure.joinFormulae(
-                acidStructure, amineStructure, LegacyBond.BondType.SINGLE
+                acidStructure, ammoniaStructure, LegacyBond.BondType.SINGLE
         )).build();
 
         return reactionBuilder()
                 .addReactant(first.getMolecule(), 1, 1)
-                .addReactant(second.getMolecule(), 1, 1)
+                .addReactant(DestroyMolecules.AMMONIA, 1, 1)
                 .addProduct(amide)
                 .addProduct(DestroyMolecules.WATER)
                 .build();

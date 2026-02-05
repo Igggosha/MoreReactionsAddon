@@ -1,0 +1,5 @@
+{
+  "morereactions.reaction.amide_condensation": "Amide Condensation1",
+  "morereactions.reaction.amide_condensation.description": "Condensation reaction of a {carboxylic acid, destroy:carboxylic_acid} and an {amine, destroy:amine}. Requires pressure and heat."
+
+}
