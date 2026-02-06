@@ -1,5 +1,6 @@
 package com.igggosha.morereactions;
 
+import com.igggosha.morereactions.molecules.MoreMolecules;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -80,7 +81,7 @@ public class ExampleMod
         event.enqueueWork(new Runnable() {
             @Override
             public void run() {
-
+                MoreMolecules.register();
                 RegisterReactions.register();
 
             }
