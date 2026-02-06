@@ -1,5 +1,10 @@
 {
-  "morereactions.reaction.amide_condensation": "Amide Condensation1",
-  "morereactions.reaction.amide_condensation.description": "Condensation reaction of a {carboxylic acid, destroy:carboxylic_acid} and an {amine, destroy:amine}. Requires pressure and heat."
+  "morereactions.generic_reaction.amide_condensation": "[destroy:amide] Condensation (With primary amine)",
+  "morereactions.generic_reaction.amide_condensation.description": "Condensation reaction of a [destroy:carboxylic_acid] and an [destroy:amine]. Requires pressure and heat (>373K).",
+  "morereactions.generic_reaction.ammonia_amide_condensation": "[destroy:amide] Condensation (With ammonia)",
+  "morereactions.generic_reaction.ammonia_amide_condensation.description": "Condensation reaction of a [destroy:carboxylic_acid] and a [destroy:ammonia]. Requires pressure and heat (>373K).",
+
+  "morereactions.generic_reaction.friedel_crafts_alkylation": "Friedel-Crafts Alkylation",
+  "morereactions.generic_reaction.friedel_crafts_alkylation.description": "Friedel-Crafts alkylation of a [destroy:benzene] with an alkyl halide, usefully forming a C-C bond. ⚠ Carbocation rearrangement is not simulated."
 
 }
